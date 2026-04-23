@@ -29,7 +29,7 @@ function Dashboard() {
 
   const fetchItems = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/items', config)
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/items`, config)
       setItems(res.data)
     } catch (err) {
       console.log(err)
@@ -43,7 +43,7 @@ function Dashboard() {
     }
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/items/search?name=${searchQuery}`, config
+        `${import.meta.env.VITE_API_URL}/api/items/search?name=${searchQuery}`, config
       )
       setItems(res.data)
     } catch (err) {
@@ -58,10 +58,10 @@ function Dashboard() {
 
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/items/${editingId}`, itemData, config)
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/items/${editingId}`, itemData, config)
         setEditingId(null)
       } else {
-        await axios.post('http://localhost:5000/api/items', itemData, config)
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/items`, itemData, config)
       }
       clearForm()
       fetchItems()
@@ -93,7 +93,7 @@ function Dashboard() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/items/${id}`, config)
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/items/${id}`, config)
         fetchItems()
       } catch (err) {
         console.log(err)
